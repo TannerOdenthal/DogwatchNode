@@ -12,6 +12,8 @@ ROOM_NAME = "living_room"  # Change this for each new Pico! (e.g. "garage", "bed
 WIFI_SSID = "YOUR_WIFI_SSID"
 WIFI_PASS = "YOUR_WIFI_PASSWORD"
 MQTT_SERVER = "192.168.X.X"
+MQTT_USER = "dogwatch_svc"
+MQTT_PASS = "YourSecurePassword"
 
 # Target Device (BLE Beacon/Collar)
 TARGET_MAC = "XX:XX:XX:XX:XX:XX"
@@ -55,7 +57,13 @@ def connect_wifi():
     return wlan.isconnected()
 
 def connect_mqtt():
-    client = MQTTClient(CLIENT_ID, MQTT_SERVER, keepalive=60)
+    client = MQTTClient(
+        CLIENT_ID, 
+        MQTT_SERVER, 
+        user=MQTT_USER, 
+        password=MQTT_PASS, 
+        keepalive=60
+    )
     client.connect()
     return client
 
